@@ -1,14 +1,14 @@
 import Image from 'next/image'
 import type { Dictionary } from '@/content/dictionary'
-import { hotspotPosition, imageUrl, type SanityImage } from '@/sanity/client'
+import { focusPosition, type ImageRef } from '@/lib/data/types'
 import { CheckIcon, WhatsAppIcon } from './icons'
 import { buttonGold, buttonPrimary, container } from './ui'
 
-export function Hero({ t, heroImage, whatsappHref }: { t: Dictionary; heroImage: SanityImage; whatsappHref: string }) {
-  const cmsSrc = imageUrl(heroImage, 1200, 1500)
-  const src = cmsSrc ?? '/images/bosphorus-hero.png'
-  const alt = (cmsSrc && heroImage?.alt) || t.hero.imageAlt
-  const position = cmsSrc ? hotspotPosition(heroImage, '50% 60%') : '50% 70%'
+export function Hero({ t, heroImage, whatsappHref }: { t: Dictionary; heroImage: ImageRef | null; whatsappHref: string }) {
+  const custom = heroImage?.url
+  const src = custom || '/images/bosphorus-hero.png'
+  const alt = (custom && heroImage?.alt) || t.hero.imageAlt
+  const position = custom ? focusPosition[heroImage?.focus ?? 'center'] : '50% 70%'
 
   return (
     <section id="top" className={`${container} flex flex-col items-center gap-12 pb-20 pt-12 sm:pt-16 lg:flex-row lg:gap-14 lg:pb-24 lg:pt-20`}>

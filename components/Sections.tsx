@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import type { Dictionary } from '@/content/dictionary'
 import type { AboutContent, ServiceItem, WhyTurkiyeContent } from '@/content/defaults'
-import type { Partner, Story, TeamMember } from '@/lib/cms'
+import { focusPosition, type ImageRef, type PartnerDoc as Partner, type StoryDoc as Story, type TeamMemberDoc as TeamMember } from '@/lib/data/types'
 import { pick, type Locale } from '@/lib/i18n'
-import { hotspotPosition, imageUrl } from '@/sanity/client'
 import { CoinIcon, GraduationIcon, LanguageIcon, PeopleIcon } from './icons'
 import { Eyebrow, SectionTitle, container } from './ui'
+
+const pos = (img?: ImageRef | null) => focusPosition[img?.focus ?? 'center']
 
 /* ── Partner universities ───────────────────────────────── */
 export function Partners({ t, partners }: { t: Dictionary; partners: Partner[] }) {
@@ -18,7 +19,7 @@ export function Partners({ t, partners }: { t: Dictionary; partners: Partner[] }
         </h2>
         <ul className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {partners.map((p) => {
-            const src = imageUrl(p.logo, 320)
+            const src = p.logo?.url
             if (!src) return null
             const logo = <Image src={src} alt={p.name} width={160} height={64} className="h-14 w-auto max-w-[160px] object-contain" />
             return (
@@ -156,17 +157,17 @@ export function About({ t, locale, content, team }: { t: Dictionary; locale: Loc
           <h3 className="font-display text-3xl font-semibold text-forest">{t.about.team}</h3>
           <ul className="grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
             {team.map((m) => {
-              const src = imageUrl(m.photo, 600, 600)
+              const src = m.photo?.url
               return (
                 <li key={m._id} className="flex flex-col gap-3">
                   <div className="relative aspect-square overflow-hidden rounded-[18px] border border-[#d9cda8] bg-sand">
                     {src && (
-                      <Image src={src} alt={m.name} fill sizes="(min-width: 1024px) 290px, 45vw" className="object-cover" style={{ objectPosition: hotspotPosition(m.photo) }} />
+                      <Image src={src} alt={m.name} fill sizes="(min-width: 1024px) 290px, 45vw" className="object-cover" style={{ objectPosition: pos(m.photo) }} />
                     )}
                   </div>
                   <div>
                     <p className="text-[17px] font-bold">{m.name}</p>
-                    <p className="text-sm text-muted">{[pick(m.role, locale), m.office].filter(Boolean).join(' · ')}</p>
+                    <p className="text-sm text-muted">{[pick(m.role, locale), m.office === 'Türkiye' ? t.topbar.turkiye : t.topbar.zimbabwe].filter(Boolean).join(' · ')}</p>
                   </div>
                 </li>
               )
@@ -190,13 +191,13 @@ export function Stories({ t, locale, stories }: { t: Dictionary; locale: Locale;
         </div>
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((s) => {
-            const src = imageUrl(s.photo, 800, 600)
+            const src = s.photo?.url
             const quote = pick(s.quote, locale)
             return (
               <li key={s._id}>
                 <figure className="flex h-full flex-col overflow-hidden rounded-[20px] bg-white">
                   <div className="relative h-60 bg-[#e9e1cb]">
-                    {src && <Image src={src} alt={s.studentName} fill sizes="(min-width: 1024px) 380px, 92vw" className="object-cover" style={{ objectPosition: hotspotPosition(s.photo) }} />}
+                    {src && <Image src={src} alt={s.studentName} fill sizes="(min-width: 1024px) 380px, 92vw" className="object-cover" style={{ objectPosition: pos(s.photo) }} />}
                   </div>
                   {quote && (
                     <blockquote className="px-6 pb-2 pt-6 font-display text-[22px] italic leading-snug text-forest">“{quote}”</blockquote>

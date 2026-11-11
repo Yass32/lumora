@@ -26,6 +26,9 @@
   body {
     @apply bg-cream font-sans text-ink antialiased;
   }
+  .font-display {
+    font-variant-numeric: lining-nums;
+  }
   :focus-visible {
     outline: 3px solid var(--color-gold);
     outline-offset: 2px;

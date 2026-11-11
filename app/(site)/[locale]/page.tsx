@@ -7,7 +7,7 @@ import { About, Partners, Services, Stories, WhyTurkiye } from '@/components/Sec
 import type { SectionKey } from '@/content/defaults'
 import { getDictionary } from '@/content/dictionary'
 import { waLink } from '@/content/site'
-import { getHomeContent } from '@/lib/cms'
+import { getHomeContent } from '@/lib/data/content'
 import { isLocale } from '@/lib/i18n'
 
 // Re-check the CMS for new content at most once a minute.
