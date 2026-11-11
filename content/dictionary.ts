@@ -52,7 +52,7 @@ const en = {
     stages: ['Before you leave', 'When you arrive', 'Settling in & beyond'],
   },
   about: { team: 'Our team' },
-  stories: { eyebrow: 'Student stories', title: 'From Zimbabwe to campus' },
+  stories: { eyebrow: 'Student stories', title: 'From Zimbabwe to Istanbul' },
   contact: {
     eyebrow: 'Book a free consultation',
     title: "Let's plan your studies in Türkiye",

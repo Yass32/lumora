@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
       title: t.meta.title,
       description: t.meta.description,
       url: `/${locale}`,
-      images: [{ url: '/images/bosphorus-hero.png', width: 1600, height: 2000 }],
+      images: [{ url: '/images/lumora-logo.jpg', width: 1600, height: 2000 }],
     },
   }
 }

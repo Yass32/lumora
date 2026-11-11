@@ -40,3 +40,103 @@
     scroll-behavior: auto;
   }
 }
+
+/* ───────────── Animations ───────────── */
+
+header {
+  transition: box-shadow 0.3s ease;
+}
+header.is-scrolled {
+  box-shadow: 0 6px 24px rgba(14, 59, 24, 0.08);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Scroll reveal (classes added by components/ScrollReveal.tsx) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hero: text rises in line by line, photo settles in, badge floats */
+  #top > div:first-child > * {
+    animation: lumora-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  #top > div:first-child > *:nth-child(2) { animation-delay: 0.08s; }
+  #top > div:first-child > *:nth-child(3) { animation-delay: 0.16s; }
+  #top > div:first-child > *:nth-child(4) { animation-delay: 0.24s; }
+  #top > div:first-child > *:nth-child(5) { animation-delay: 0.32s; }
+
+  #top > div:last-child > div:first-child {
+    animation: lumora-fade 1s ease 0.15s both;
+  }
+  #top > div:last-child img {
+    animation: lumora-zoom 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
+  }
+  #top > div:last-child > div:last-child {
+    animation:
+      lumora-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both,
+      lumora-float 6s ease-in-out 1.4s infinite;
+  }
+
+  /* Cards lift on hover */
+  #services ol > li,
+  #turkiye ul > li,
+  #stories figure {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  #services ol > li:hover,
+  #turkiye ul > li:hover,
+  #stories figure:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(14, 59, 24, 0.12);
+  }
+
+  /* Buttons nudge up on hover */
+  main a.rounded-full,
+  main button.rounded-full {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  main a.rounded-full:hover,
+  main button.rounded-full:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Gentle pulse ring around the floating WhatsApp button */
+  body > a.fixed::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    border: 2px solid var(--color-gold);
+    pointer-events: none;
+    animation: lumora-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes lumora-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes lumora-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lumora-zoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+@keyframes lumora-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes lumora-ping {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(1.55); opacity: 0; }
+}

@@ -9,6 +9,7 @@ import { getDictionary } from '@/content/dictionary'
 import { waLink } from '@/content/site'
 import { getHomeContent } from '@/lib/data/content'
 import { isLocale } from '@/lib/i18n'
+import { ScrollReveal } from '@/components/ScrollReveal'
 
 // Re-check the CMS for new content at most once a minute.
 export const revalidate = 60
@@ -53,6 +54,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </main>
       <Footer t={t} settings={content.settings} nav={nav} whatsappHref={whatsappHref} />
       <WhatsAppFloat href={whatsappHref} label={t.cta.whatsappFloat} />
+      <ScrollReveal />
     </>
   )
 }
