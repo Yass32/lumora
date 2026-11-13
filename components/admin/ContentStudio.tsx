@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { saveSections } from '@/lib/admin/actions'
-import type { AboutDoc, HomepageDoc, PartnerDoc, ServiceDoc, SettingsDoc, StoryDoc, TeamMemberDoc, WhyTurkiyeDoc } from '@/lib/data/types'
+import type { AboutDoc, DestinationDoc, HomepageDoc, PartnerDoc, ServiceDoc, SettingsDoc, StoryDoc, TeamMemberDoc, WhyTurkiyeDoc } from '@/lib/data/types'
 import { AboutEditor, ContactEditor, HeroEditor, WhyTurkiyeEditor } from './editors'
 import { Icon } from './Icon'
-import { PartnersEditor, ServicesEditor, StoriesEditor, TeamEditor } from './ListEditors'
+import { DestinationsEditor, PartnersEditor, ServicesEditor, StoriesEditor, TeamEditor } from './ListEditors'
 import { btnIcon } from './styles'
 import { sectionNames, type StudioSection } from './sections'
 import { useAction } from './ui'
@@ -17,6 +17,7 @@ type Data = {
   whyTurkiye: WhyTurkiyeDoc
   about: AboutDoc
   services: ServiceDoc[]
+  destinations: DestinationDoc[]
   team: TeamMemberDoc[]
   stories: StoryDoc[]
   partners: PartnerDoc[]
@@ -29,6 +30,7 @@ export function ContentStudio({ section, data }: { section: StudioSection; data:
     turkiye: <WhyTurkiyeEditor doc={data.whyTurkiye} />,
     about: <AboutEditor doc={data.about} />,
     services: <ServicesEditor items={data.services} />,
+    destinations: <DestinationsEditor items={data.destinations} />,
     team: <TeamEditor items={data.team} />,
     stories: <StoriesEditor items={data.stories} />,
     partners: <PartnersEditor items={data.partners} />,
@@ -53,6 +55,7 @@ function SectionList({ current, data }: { current: StudioSection; data: Data }) 
   const meta: Record<string, string> = {
     partners: `${data.partners.filter((p) => p.logo).length} ${data.partners.filter((p) => p.logo).length === 1 ? 'logo' : 'logos'}`,
     services: `${data.services.length} items`,
+    destinations: `${data.destinations.length} countries`,
     turkiye: `${data.whyTurkiye.points.length} reasons`,
     about: `${data.team.length} ${data.team.length === 1 ? 'person' : 'people'}`,
     stories: `${data.stories.length} ${data.stories.length === 1 ? 'story' : 'stories'}`,

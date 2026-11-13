@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from 'react'
 import { deleteListItem, reorderList, saveListItem } from '@/lib/admin/actions'
-import type { PartnerDoc, ServiceDoc, StoryDoc, TeamMemberDoc } from '@/lib/data/types'
+import type { DestinationDoc, PartnerDoc, ServiceDoc, StoryDoc, TeamMemberDoc } from '@/lib/data/types'
 import { pick, type Locale, type Localized } from '@/lib/i18n'
 import { EditorCard } from './editors'
 import { Icon } from './Icon'
@@ -10,7 +10,7 @@ import { ImageField } from './ImageField'
 import { btnDanger, btnIcon, btnPrimary, btnSecondary, field, label, textarea } from './styles'
 import { Badge, LangNotice, LangTabs, Notice, setLocalized, useAction } from './ui'
 
-type ListType = 'service' | 'teamMember' | 'story' | 'partner'
+type ListType = 'service' | 'destination' | 'teamMember' | 'story' | 'partner'
 type Item = { _id: string; order: number; [k: string]: unknown }
 type Row<T> = { key: string; item: T; saved: string; isNew: boolean }
 
@@ -235,6 +235,51 @@ export function ServicesEditor({ items }: { items: ServiceDoc[] }) {
             </F>
             <F id={`s-desc-${s._id}`} title="Short description">
               <LocalInput id={`s-desc-${s._id}`} value={s.description} lang={lang} onChange={(description) => set({ ...s, description })} multiline />
+            </F>
+          </>
+        ),
+      }}
+    />
+  )
+}
+
+export function DestinationsEditor({ items }: { items: DestinationDoc[] }) {
+  return (
+    <ListEditor<DestinationDoc & Item>
+      items={items as (DestinationDoc & Item)[]}
+      config={{
+        type: 'destination',
+        title: 'Destinations',
+        addLabel: 'Add a country',
+        emptyText: 'No destinations yet. The section stays hidden on the website until you add one.',
+        intro: (
+          <Notice>
+            Each country shows as a card with an “Ask about…” WhatsApp button, and appears in the booking form’s “Preferred destination” list. A photo is optional.
+          </Notice>
+        ),
+        blank: () => ({ _id: '', _type: 'destination', order: 0, code: '', name: {}, summary: {}, photo: null }) as DestinationDoc & Item,
+        summary: (d) => ({ title: d.name.en ?? '', subtitle: d.summary.en, image: d.photo?.url ?? null, badge: d.code ? <Badge tone="gray">{d.code}</Badge> : undefined }),
+        localized: (d) => [d.name, d.summary],
+        form: (d, set, lang) => (
+          <>
+            <ImageField value={d.photo} onChange={(photo) => set({ ...d, photo })} shape="wide" withFocus help="Optional: a city or campus photo. JPG, PNG or WebP, up to 4 MB." />
+            <div className="grid gap-4 sm:grid-cols-[120px_1fr]">
+              <F id={`d-code-${d._id}`} title="Country code">
+                <input
+                  id={`d-code-${d._id}`}
+                  className={`${field} uppercase`}
+                  maxLength={3}
+                  value={d.code}
+                  onChange={(e) => set({ ...d, code: e.target.value.toUpperCase() })}
+                  placeholder="e.g. PL"
+                />
+              </F>
+              <F id={`d-name-${d._id}`} title="Country name" hint={`(${lang.toUpperCase()})`}>
+                <LocalInput id={`d-name-${d._id}`} value={d.name} lang={lang} onChange={(name) => set({ ...d, name })} />
+              </F>
+            </div>
+            <F id={`d-sum-${d._id}`} title="Short description" hint={`(${lang.toUpperCase()}, one sentence)`}>
+              <LocalInput id={`d-sum-${d._id}`} value={d.summary} lang={lang} onChange={(summary) => set({ ...d, summary })} multiline />
             </F>
           </>
         ),

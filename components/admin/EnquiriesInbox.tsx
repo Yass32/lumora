@@ -44,7 +44,7 @@ export function EnquiriesInbox({ initial, canDelete }: { initial: EnquiryDoc[]; 
   const visible = items.filter((i) => {
     if (filter !== 'all' && i.status !== filter) return false
     const q = query.trim().toLowerCase()
-    return !q || [i.name, i.phone, i.email, i.programme].some((v) => v?.toLowerCase().includes(q))
+    return !q || [i.name, i.phone, i.email, i.programme, i.destination].some((v) => v?.toLowerCase().includes(q))
   })
   const selected = items.find((i) => i._id === selectedId) ?? null
 
@@ -84,7 +84,7 @@ export function EnquiriesInbox({ initial, canDelete }: { initial: EnquiryDoc[]; 
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search name, phone, programme"
+                placeholder="Search name, phone, country"
                 className="min-h-10 w-[240px] max-w-full rounded-full border border-[#cfc3a0] bg-[#fdfbf5] pl-9 pr-3 text-sm focus:border-leaf focus:outline-none"
               />
             </label>
@@ -96,10 +96,11 @@ export function EnquiriesInbox({ initial, canDelete }: { initial: EnquiryDoc[]; 
             </p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[720px] border-collapse text-sm">
+              <table className="w-full min-w-[820px] border-collapse text-sm">
                 <thead>
                   <tr className="text-left text-xs tracking-[0.06em] text-muted">
                     <th scope="col" className="px-4 py-3 font-bold">STUDENT</th>
+                    <th scope="col" className="px-4 py-3 font-bold">DESTINATION</th>
                     <th scope="col" className="px-4 py-3 font-bold">PROGRAMME</th>
                     <th scope="col" className="px-4 py-3 font-bold">LEVEL</th>
                     <th scope="col" className="px-4 py-3 font-bold">INTAKE</th>
@@ -122,6 +123,7 @@ export function EnquiriesInbox({ initial, canDelete }: { initial: EnquiryDoc[]; 
                             <span className="text-[13px] text-muted">{e.phone}</span>
                           </button>
                         </td>
+                        <td className="px-4 py-3.5">{e.destination || '—'}</td>
                         <td className="px-4 py-3.5">{e.programme || '—'}</td>
                         <td className="px-4 py-3.5">{e.level || '—'}</td>
                         <td className="px-4 py-3.5">{e.intake || '—'}</td>
@@ -185,6 +187,7 @@ function Detail({ enquiry, canDelete, onUpdate, onDelete }: { enquiry: EnquiryDo
       <div className="grid grid-cols-2 gap-3.5 text-sm">
         {row('WhatsApp', enquiry.phone)}
         {row('Email', enquiry.email)}
+        {row('Destination', enquiry.destination)}
         {row('Programme', enquiry.programme)}
         {row('Intake', enquiry.intake)}
         {row('Website language', localeNames[lang].native)}

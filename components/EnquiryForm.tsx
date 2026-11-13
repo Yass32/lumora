@@ -16,11 +16,13 @@ export function EnquiryForm({
   locale,
   whatsappHref,
   whatsappLabel,
+  destinations,
 }: {
   t: Dictionary['form']
   locale: Locale
   whatsappHref: string
   whatsappLabel: string
+  destinations: { value: string; label: string }[]
 }) {
   const [status, setStatus] = useState<Status>('idle')
   const [problem, setProblem] = useState<string | null>(null)
@@ -90,6 +92,19 @@ export function EnquiryForm({
           {t.email} <span className="font-normal text-muted">{t.optional}</span>
         </label>
         <input id="f-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" className={input} />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="f-destination" className={label}>
+          {t.destination}
+        </label>
+        <select id="f-destination" name="destination" className={input} defaultValue="">
+          <option value="">{t.notSure}</option>
+          {destinations.map((d) => (
+            <option key={d.value} value={d.value}>
+              {d.label}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="flex flex-col gap-1.5">
         <label htmlFor="f-level" className={label}>

@@ -1,15 +1,16 @@
 import { notFound } from 'next/navigation'
 import { Contact } from '@/components/Contact'
+import { Destinations } from '@/components/Destinations'
 import { Footer, WhatsAppFloat } from '@/components/Footer'
 import { Header, type NavItem } from '@/components/Header'
 import { Hero } from '@/components/Hero'
+import { ScrollReveal } from '@/components/ScrollReveal'
 import { About, Partners, Services, Stories, WhyTurkiye } from '@/components/Sections'
 import type { SectionKey } from '@/content/defaults'
 import { getDictionary } from '@/content/dictionary'
 import { waLink } from '@/content/site'
 import { getHomeContent } from '@/lib/data/content'
-import { isLocale } from '@/lib/i18n'
-import { ScrollReveal } from '@/components/ScrollReveal'
+import { isLocale, pick } from '@/lib/i18n'
 
 // Re-check the CMS for new content at most once a minute.
 export const revalidate = 60
@@ -26,11 +27,12 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const shown = new Set<SectionKey>(content.sections.filter((key) => {
     if (key === 'partners') return content.partners.length > 0
     if (key === 'stories') return content.stories.length > 0
+    if (key === 'destinations') return content.destinations.length > 0
     return true
   }))
   const nav: NavItem[] = [
     shown.has('services') && { href: '#services', label: t.nav.services },
-    shown.has('turkiye') && { href: '#turkiye', label: t.nav.turkiye },
+    shown.has('destinations') && { href: '#destinations', label: t.nav.destinations },
     shown.has('about') && { href: '#about', label: t.nav.about },
     shown.has('stories') && { href: '#stories', label: t.nav.stories },
     shown.has('contact') && { href: '#contact', label: t.nav.contact },
@@ -39,10 +41,23 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const render: Record<SectionKey, React.ReactNode> = {
     partners: <Partners key="partners" t={t} partners={content.partners} />,
     services: <Services key="services" t={t} locale={locale} services={content.services} />,
+    destinations: (
+      <Destinations key="destinations" t={t} locale={locale} destinations={content.destinations} whatsappNumber={content.settings.whatsappZimbabwe} />
+    ),
     turkiye: <WhyTurkiye key="turkiye" locale={locale} content={content.whyTurkiye} />,
     about: <About key="about" t={t} locale={locale} content={content.about} team={content.team} />,
     stories: <Stories key="stories" t={t} locale={locale} stories={content.stories} />,
-    contact: <Contact key="contact" t={t} locale={locale} settings={content.settings} whatsappHref={whatsappHref} />,
+    contact: (
+      <Contact
+        key="contact"
+        t={t}
+        locale={locale}
+        settings={content.settings}
+        whatsappHref={whatsappHref}
+        // The form shows names in the visitor's language but sends the English name, so staff see one consistent list.
+        destinations={content.destinations.map((d) => ({ value: d.name.en ?? d.code, label: pick(d.name, locale) ?? d.code }))}
+      />
+    ),
   }
 
   return (

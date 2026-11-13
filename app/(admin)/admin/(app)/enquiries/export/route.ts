@@ -5,7 +5,7 @@ import { getStore } from '@/lib/data/store'
 export async function GET() {
   if (!(await getCurrentUser())) return new Response('Please sign in.', { status: 401 })
   const rows = (await getStore().list('enquiry')).sort((a, b) => b.submittedAt.localeCompare(a.submittedAt))
-  const headers = ['Received', 'Name', 'WhatsApp', 'Email', 'Level', 'Programme', 'Intake', 'Language', 'Status', 'Message', 'Notes']
+  const headers = ['Received', 'Name', 'WhatsApp', 'Email', 'Destination', 'Level', 'Programme', 'Intake', 'Language', 'Status', 'Message', 'Notes']
   const cell = (v: unknown) => {
     let s = String(v ?? '')
     if (/^[=+\-@]/.test(s)) s = `'${s}` // stop spreadsheet formulas
@@ -14,7 +14,7 @@ export async function GET() {
   const lines = [
     headers.map(cell).join(','),
     ...rows.map((e) =>
-      [new Date(e.submittedAt).toISOString().slice(0, 16).replace('T', ' '), e.name, e.phone, e.email, e.level, e.programme, e.intake, e.language, e.status, e.message, e.notes]
+      [new Date(e.submittedAt).toISOString().slice(0, 16).replace('T', ' '), e.name, e.phone, e.email, e.destination, e.level, e.programme, e.intake, e.language, e.status, e.message, e.notes]
         .map(cell)
         .join(','),
     ),

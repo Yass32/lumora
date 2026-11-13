@@ -5,7 +5,19 @@ import { EnquiryForm } from './EnquiryForm'
 import { MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from './icons'
 import { Eyebrow, SectionTitle, container } from './ui'
 
-export function Contact({ t, locale, settings, whatsappHref }: { t: Dictionary; locale: Locale; settings: SiteSettings; whatsappHref: string }) {
+export function Contact({
+  t,
+  locale,
+  settings,
+  whatsappHref,
+  destinations,
+}: {
+  t: Dictionary
+  locale: Locale
+  settings: SiteSettings
+  whatsappHref: string
+  destinations: { value: string; label: string }[]
+}) {
   const card = 'flex items-center gap-3.5 rounded-[14px] border border-line bg-white px-4 py-4 text-ink no-underline'
   const bubble = 'flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-leaf text-white'
 
@@ -59,7 +71,7 @@ export function Contact({ t, locale, settings, whatsappHref }: { t: Dictionary; 
       </div>
 
       <div className="min-w-0 flex-1">
-        <EnquiryForm t={t.form} locale={locale} whatsappHref={whatsappHref} whatsappLabel={t.cta.whatsapp} />
+        <EnquiryForm t={t.form} locale={locale} whatsappHref={whatsappHref} whatsappLabel={t.cta.whatsapp} destinations={destinations} />
       </div>
     </section>
   )

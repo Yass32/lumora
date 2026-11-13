@@ -4,10 +4,11 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { endSession, hashPassword, MIN_PASSWORD, requireUser, startSession, temporaryPassword, verifyPassword } from '@/lib/auth'
 import { getStore, newId } from '@/lib/data/store'
-import { sectionKeys } from '@/content/defaults'
+import { normalizeSections } from '@/content/defaults'
 import {
   enquiryStatuses,
   type AboutDoc,
+  type DestinationDoc,
   type EnquiryStatus,
   type ImageRef,
   type PartnerDoc,
@@ -152,9 +153,8 @@ export async function saveSettings(input: Partial<SettingsDoc>): Promise<ActionR
 export async function saveSections(sections: { key: string; visible: boolean }[]): Promise<ActionResult> {
   return run(async () => {
     await requireUser()
-    const allowed = sections.filter((s) => (sectionKeys as readonly string[]).includes(s.key))
-    for (const key of sectionKeys) if (!allowed.some((s) => s.key === key)) allowed.push({ key, visible: true })
-    await getStore().save({ _id: 'homepage', _type: 'homepage', sections: allowed.map((s) => ({ key: s.key, visible: !!s.visible })) })
+    const clean = normalizeSections(sections.map((s) => ({ key: String(s.key), visible: !!s.visible })))
+    await getStore().save({ _id: 'homepage', _type: 'homepage', sections: clean })
     refreshSite()
   })
 }
@@ -192,7 +192,7 @@ export async function saveAbout(input: AboutDoc): Promise<ActionResult> {
 
 /* ── Lists: services, team, stories, partners ──────────── */
 
-type ListType = 'service' | 'teamMember' | 'story' | 'partner'
+type ListType = 'service' | 'destination' | 'teamMember' | 'story' | 'partner'
 
 function cleanListItem(type: ListType, input: Record<string, unknown>) {
   const _id = str(input._id, 80) || newId(type)
@@ -203,6 +203,12 @@ function cleanListItem(type: ListType, input: Record<string, unknown>) {
       const title = localized(input.title, 120)
       if (!title.en) throw new Error('Add the service name in English.')
       return { _id, _type: 'service', order, stage, title, description: localized(input.description, 400) } satisfies ServiceDoc
+    }
+    case 'destination': {
+      const name = localized(input.name, 80)
+      if (!name.en) throw new Error('Add the country name in English.')
+      const code = str(input.code, 3).toUpperCase().replace(/[^A-Z]/g, '') || name.en.slice(0, 2).toUpperCase()
+      return { _id, _type: 'destination', order, code, name, summary: localized(input.summary, 300), photo: image(input.photo) } satisfies DestinationDoc
     }
     case 'teamMember': {
       const name = str(input.name, 120)

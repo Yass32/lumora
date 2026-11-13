@@ -3,7 +3,7 @@ import { getStore, newId } from '@/lib/data/store'
 import type { EnquiryDoc } from '@/lib/data/types'
 import { isLocale } from '@/lib/i18n'
 
-const MAX = { name: 120, phone: 40, email: 160, level: 80, programme: 160, intake: 60, message: 3000 }
+const MAX = { name: 120, phone: 40, email: 160, destination: 80, level: 80, programme: 160, intake: 60, message: 3000 }
 
 function clean(value: unknown, max: number) {
   return typeof value === 'string' ? value.trim().slice(0, max) : ''
@@ -30,6 +30,7 @@ export async function POST(request: Request) {
     level: clean(body.level, MAX.level),
     programme: clean(body.programme, MAX.programme),
     intake: clean(body.intake, MAX.intake),
+    destination: clean(body.destination, MAX.destination) || 'Not sure yet',
     message: clean(body.message, MAX.message),
     language: isLocale(language) ? language : 'en',
     status: 'new',
@@ -65,6 +66,7 @@ async function sendEmail(e: EnquiryDoc) {
     ['Name', e.name],
     ['WhatsApp', e.phone],
     ['Email', e.email || '—'],
+    ['Destination', e.destination || '—'],
     ['Level', e.level || '—'],
     ['Programme', e.programme || '—'],
     ['Intake', e.intake || '—'],
@@ -86,7 +88,7 @@ async function sendEmail(e: EnquiryDoc) {
         from: process.env.ENQUIRY_FROM_EMAIL || 'Lumora Website <onboarding@resend.dev>',
         to: to.split(',').map((s) => s.trim()),
         reply_to: e.email || undefined,
-        subject: `New enquiry: ${e.name} (${e.programme || e.level || 'consultation'})`,
+        subject: `New enquiry: ${e.name} (${[e.destination, e.programme || e.level].filter(Boolean).join(', ') || 'consultation'})`,
         html,
       }),
     })

@@ -108,55 +108,56 @@ export type WhyTurkiyeContent = {
   points: { title: Localized; text: Localized }[]
 }
 
+/** The "Why study abroad" section (stored under the id "whyTurkiye" from the first version of the site). */
 export const defaultWhyTurkiye: WhyTurkiyeContent = {
-  eyebrow: { en: 'Why study in Türkiye', sn: 'Sei uchidzidza kuTürkiye', tr: "Neden Türkiye'de eğitim", fr: 'Pourquoi étudier en Turquie' },
+  eyebrow: { en: 'Why study abroad', sn: 'Sei uchidzidza kunze kwenyika', tr: 'Neden yurt dışında eğitim', fr: 'Pourquoi étudier à l’étranger' },
   heading: {
-    en: 'A world-class education where Europe meets Asia',
-    sn: 'Dzidzo yepamusoro-soro panosangana Europe neAsia',
-    tr: "Avrupa ile Asya'nın buluştuğu yerde dünya standartlarında eğitim",
-    fr: "Une formation de niveau mondial, là où l'Europe rencontre l'Asie",
+    en: 'An international degree opens doors',
+    sn: 'Dhigirii rekunze kwenyika rinokuvhurira mikana',
+    tr: 'Uluslararası bir diploma yeni kapılar açar',
+    fr: 'Un diplôme international ouvre des portes',
   },
   body: {
-    en: 'Türkiye gives Zimbabwean students a quality international degree at a cost families can plan for. You get modern campuses, English-taught programmes and a safe, welcoming place to grow, with Lumora beside you the whole way.',
-    sn: 'Türkiye inopa vadzidzi vekuZimbabwe dhigirii rinozivikanwa pasi rose, pamutengo unogoneka nemhuri. Unowana mayunivhesiti emazuva ano, zvidzidzo zvinodzidziswa muChirungu, nenzvimbo yakachengeteka inogamuchira vaenzi. Uye Lumora inenge iri newe nguva dzose.',
-    tr: 'Türkiye, Zimbabveli öğrencilere ailelerin planlayabileceği bir maliyetle uluslararası geçerli, kaliteli bir diploma sunar. Modern kampüsler, İngilizce programlar ve güvenli, misafirperver bir ortam sizi bekliyor; Lumora da her adımda yanınızda.',
-    fr: 'La Turquie offre aux étudiants zimbabwéens un diplôme international de qualité, à un coût que les familles peuvent anticiper. Campus modernes, programmes en anglais, cadre sûr et accueillant : et Lumora à vos côtés à chaque étape.',
+    en: 'Studying abroad gives you a quality education, a new culture and real career opportunities. We help you choose the country and university that fit your goals and your budget, and Lumora stays beside you the whole way.',
+    sn: 'Kudzidza kunze kwenyika kunokupa dzidzo yepamusoro, ruzivo rwetsika itsva uye mikana yebasa. Tinokubatsira kusarudza nyika neyunivhesiti zvinoenderana nezvinangwa zvako nebhajeti yako, uye Lumora inenge iri newe nguva dzose.',
+    tr: 'Yurt dışında eğitim size kaliteli bir eğitim, yeni bir kültür ve gerçek kariyer fırsatları sunar. Hedeflerinize ve bütçenize uygun ülkeyi ve üniversiteyi seçmenize yardımcı oluyoruz; Lumora da her adımda yanınızda.',
+    fr: 'Étudier à l’étranger, c’est une formation de qualité, une nouvelle culture et de vraies perspectives de carrière. Nous vous aidons à choisir le pays et l’université adaptés à vos objectifs et à votre budget, et Lumora reste à vos côtés à chaque étape.',
   },
   points: [
     {
       title: { en: 'Recognised degrees', sn: 'Madhigirii anozivikanwa', tr: 'Tanınan diplomalar', fr: 'Diplômes reconnus' },
       text: {
-        en: 'Universities that follow the Bologna Process, so your degree is recognised across Europe.',
-        sn: 'Mayunivhesiti anotevera Bologna Process, saka dhigirii rako rinozivikanwa muEurope yose.',
-        tr: "Bologna Süreci'ne dahil üniversiteler; diplomanız Avrupa genelinde tanınır.",
-        fr: 'Des universités intégrées au processus de Bologne : votre diplôme est reconnu dans toute l’Europe.',
+        en: 'Study at accredited universities whose degrees are recognised internationally.',
+        sn: 'Dzidza pamayunivhesiti anozivikanwa ane madhigirii anogamuchirwa pasi rose.',
+        tr: 'Diplomaları uluslararası alanda tanınan akredite üniversitelerde okuyun.',
+        fr: 'Étudiez dans des universités accréditées dont les diplômes sont reconnus à l’international.',
       },
     },
     {
-      title: { en: 'English-taught programmes', sn: 'Zvidzidzo muChirungu', tr: 'İngilizce programlar', fr: 'Programmes en anglais' },
+      title: { en: 'Taught in English', sn: 'Zvidzidzo muChirungu', tr: 'İngilizce eğitim', fr: 'Cours en anglais' },
       text: {
-        en: 'Many programmes are taught in English, and you can also learn Turkish.',
-        sn: 'Zvidzidzo zvakawanda zvinodzidziswa muChirungu, uye unogona kudzidzawo ChiTurkey.',
-        tr: 'Pek çok program İngilizce; dilerseniz Türkçe de öğrenebilirsiniz.',
-        fr: 'De nombreux programmes sont enseignés en anglais, et vous pouvez aussi apprendre le turc.',
+        en: 'Many programmes in our destinations are taught fully in English.',
+        sn: 'Zvidzidzo zvakawanda munyika dzatinoshanda nadzo zvinodzidziswa muChirungu chete.',
+        tr: 'Ülkelerimizdeki pek çok program tamamen İngilizce verilir.',
+        fr: 'De nombreux programmes dans nos destinations sont entièrement en anglais.',
       },
     },
     {
-      title: { en: 'Affordable tuition & living', sn: 'Mari inogoneka', tr: 'Uygun eğitim ve yaşam maliyeti', fr: 'Études et vie abordables' },
+      title: { en: 'Options for every budget', sn: 'Sarudzo yebhajeti yega yega', tr: 'Her bütçeye uygun seçenekler', fr: 'Pour tous les budgets' },
       text: {
-        en: 'Costs are often lower than in the UK, Europe or North America, and scholarships are available.',
-        sn: 'Mari yechikoro neyekurarama inowanzova pasi pane yekuUK, Europe kana North America, uye kune rubatsiro rwemari.',
-        tr: 'Masraflar çoğu zaman İngiltere, Avrupa veya Kuzey Amerika’dan düşüktür; burs imkânları da vardır.',
-        fr: 'Les coûts sont souvent inférieurs à ceux du Royaume-Uni, de l’Europe ou de l’Amérique du Nord, et des bourses existent.',
+        en: 'From low-cost public universities to world-famous names, with scholarships where available.',
+        sn: 'Kubva kumayunivhesiti ehurumende ane mari shoma kusvika kune anozivikanwa pasi rose, uye rubatsiro rwemari parunowanikwa.',
+        tr: 'Uygun maliyetli devlet üniversitelerinden dünyaca ünlü okullara, mümkün olduğunda burslarla.',
+        fr: 'Des universités publiques abordables aux établissements de renommée mondiale, avec des bourses quand elles existent.',
       },
     },
     {
-      title: { en: 'A welcoming student life', sn: 'Upenyu hwevadzidzi hunogamuchira', tr: 'Sıcak bir öğrenci hayatı', fr: 'Une vie étudiante accueillante' },
+      title: { en: 'Never on your own', sn: 'Hausi wega', tr: 'Asla yalnız değilsiniz', fr: 'Jamais seul' },
       text: {
-        en: 'Big international student communities, rich culture, and regular flights back to Zimbabwe.',
-        sn: 'Nharaunda huru dzevadzidzi vekunze, tsika dzakapfuma, uye ndege dzinogara dzichienda kuZimbabwe.',
-        tr: "Geniş uluslararası öğrenci toplulukları, zengin kültür ve Zimbabve'ye düzenli uçuşlar.",
-        fr: 'De grandes communautés d’étudiants internationaux, une culture riche et des vols réguliers vers le Zimbabwe.',
+        en: 'Our team supports you before you leave and after you arrive.',
+        sn: 'Chikwata chedu chinokubatsira usati waenda uye mushure mekusvika.',
+        tr: 'Ekibimiz yola çıkmadan önce ve vardıktan sonra yanınızda.',
+        fr: 'Notre équipe vous accompagne avant le départ et après l’arrivée.',
       },
     },
   ],
@@ -188,6 +189,109 @@ export const defaultAbout: AboutContent = {
   ],
 }
 
+export type DestinationItem = { code: string; name: Localized; summary: Localized }
+
+export const defaultDestinations: DestinationItem[] = [
+  {
+    code: 'TR',
+    name: { en: 'Türkiye', sn: 'Türkiye', tr: 'Türkiye', fr: 'Turquie' },
+    summary: {
+      en: 'Affordable tuition, English-taught programmes and city life where Europe meets Asia.',
+      sn: 'Mari yechikoro inogoneka, zvidzidzo muChirungu, uye upenyu hweguta panosangana Europe neAsia.',
+      tr: 'Uygun eğitim ücretleri, İngilizce programlar ve Avrupa ile Asya’nın buluştuğu bir şehir hayatı.',
+      fr: 'Des frais de scolarité abordables, des cours en anglais et une vie urbaine entre l’Europe et l’Asie.',
+    },
+  },
+  {
+    code: 'PL',
+    name: { en: 'Poland', sn: 'Poland', tr: 'Polonya', fr: 'Pologne' },
+    summary: {
+      en: 'A European Union degree at a reasonable cost, with many programmes taught in English.',
+      sn: 'Dhigirii reEuropean Union pamutengo unonzwisisika, nezvidzidzo zvakawanda muChirungu.',
+      tr: 'Makul bir maliyetle Avrupa Birliği diploması ve İngilizce eğitim veren pek çok program.',
+      fr: 'Un diplôme de l’Union européenne à un coût raisonnable, avec de nombreux programmes en anglais.',
+    },
+  },
+  {
+    code: 'BY',
+    name: { en: 'Belarus', sn: 'Belarus', tr: 'Belarus', fr: 'Biélorussie' },
+    summary: {
+      en: 'Low tuition and living costs, and medicine programmes taught in English.',
+      sn: 'Mari shoma yechikoro neyekurarama, uye zvidzidzo zvemishonga (medicine) muChirungu.',
+      tr: 'Düşük eğitim ve yaşam maliyeti, İngilizce tıp programları.',
+      fr: 'Des frais de scolarité et un coût de la vie bas, et des études de médecine en anglais.',
+    },
+  },
+  {
+    code: 'LT',
+    name: { en: 'Lithuania', sn: 'Lithuania', tr: 'Litvanya', fr: 'Lituanie' },
+    summary: {
+      en: 'A European Union degree, English-taught programmes and a safe, modern student life.',
+      sn: 'Dhigirii reEuropean Union, zvidzidzo muChirungu, uye upenyu hwevadzidzi hwakachengeteka hwemazuva ano.',
+      tr: 'Avrupa Birliği diploması, İngilizce programlar ve güvenli, modern bir öğrenci hayatı.',
+      fr: 'Un diplôme de l’Union européenne, des programmes en anglais et une vie étudiante sûre et moderne.',
+    },
+  },
+  {
+    code: 'GB',
+    name: { en: 'United Kingdom', sn: 'United Kingdom', tr: 'Birleşik Krallık', fr: 'Royaume-Uni' },
+    summary: {
+      en: 'World-famous universities and master’s degrees that take just one year.',
+      sn: 'Mayunivhesiti anozivikanwa pasi rose, uye madhigirii eMasters anotora gore rimwe chete.',
+      tr: 'Dünyaca ünlü üniversiteler ve yalnızca bir yıl süren yüksek lisans programları.',
+      fr: 'Des universités de renommée mondiale et des masters en un an seulement.',
+    },
+  },
+  {
+    code: 'CA',
+    name: { en: 'Canada', sn: 'Canada', tr: 'Kanada', fr: 'Canada' },
+    summary: {
+      en: 'High-quality universities and colleges in a welcoming, multicultural country.',
+      sn: 'Mayunivhesiti nemakoreji emhando yepamusoro munyika inogamuchira vanhu vemarudzi ese.',
+      tr: 'Sıcak ve çok kültürlü bir ülkede kaliteli üniversiteler ve kolejler.',
+      fr: 'Des universités et collèges de qualité dans un pays accueillant et multiculturel.',
+    },
+  },
+  {
+    code: 'AU',
+    name: { en: 'Australia', sn: 'Australia', tr: 'Avustralya', fr: 'Australie' },
+    summary: {
+      en: 'Top-ranked universities, a great climate and the chance to work part-time while you study.',
+      sn: 'Mayunivhesiti epamusoro, mamiriro ekunze akanaka, uye mukana wekushanda nguva shoma uchidzidza.',
+      tr: 'Üst sıralardaki üniversiteler, güzel bir iklim ve okurken yarı zamanlı çalışma imkânı.',
+      fr: 'Des universités parmi les mieux classées, un climat agréable et la possibilité de travailler à temps partiel.',
+    },
+  },
+  {
+    code: 'DE',
+    name: { en: 'Germany', sn: 'Germany', tr: 'Almanya', fr: 'Allemagne' },
+    summary: {
+      en: 'Little or no tuition at most public universities, and strong in engineering and science.',
+      sn: 'Mari yechikoro shoma kana isipo pamayunivhesiti mazhinji ehurumende, uye inozivikanwa neinjiniya nesainzi.',
+      tr: 'Devlet üniversitelerinin çoğunda düşük ya da hiç olmayan eğitim ücreti; mühendislik ve bilimde güçlü.',
+      fr: 'Peu ou pas de frais de scolarité dans la plupart des universités publiques, et une référence en ingénierie et en sciences.',
+    },
+  },
+]
+
 /** Homepage sections, in display order. Staff can hide or reorder them in the CMS. */
-export const sectionKeys = ['partners', 'services', 'turkiye', 'about', 'stories', 'contact'] as const
+export const sectionKeys = ['partners', 'services', 'destinations', 'turkiye', 'about', 'stories', 'contact'] as const
 export type SectionKey = (typeof sectionKeys)[number]
+
+/**
+ * Takes the saved section order and adds any section the site has gained since it was saved
+ * (e.g. "destinations"), in its default position. Unknown keys are dropped.
+ */
+export function normalizeSections(saved: { key: string; visible: boolean }[] | undefined): { key: SectionKey; visible: boolean }[] {
+  const known = (saved ?? []).filter((s): s is { key: SectionKey; visible: boolean } => (sectionKeys as readonly string[]).includes(s.key))
+  if (!known.length) return sectionKeys.map((key) => ({ key, visible: true }))
+  const out = [...known]
+  sectionKeys.forEach((key, i) => {
+    if (out.some((s) => s.key === key)) return
+    // Insert after the section that comes before it by default.
+    const before = sectionKeys.slice(0, i).reverse().find((k) => out.some((s) => s.key === k))
+    const at = before ? out.findIndex((s) => s.key === before) + 1 : 0
+    out.splice(at, 0, { key, visible: true })
+  })
+  return out
+}

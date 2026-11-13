@@ -2,7 +2,8 @@ import { ContentStudio } from '@/components/admin/ContentStudio'
 import { sectionNames, type StudioSection } from '@/components/admin/sections'
 import { PageHeader } from '@/components/admin/ui'
 import { requireUser } from '@/lib/auth'
-import { defaultAboutDoc, defaultHomepage, defaultSettingsDoc, defaultWhyTurkiyeDoc } from '@/lib/data/content'
+import { normalizeSections } from '@/content/defaults'
+import { defaultAboutDoc, defaultSettingsDoc, defaultWhyTurkiyeDoc } from '@/lib/data/content'
 import { getStore } from '@/lib/data/store'
 
 export const metadata = { title: 'Edit homepage' }
@@ -16,12 +17,13 @@ export default async function ContentPage({ searchParams }: PageProps<'/admin/co
   const section = (requested in sectionNames ? requested : 'hero') as StudioSection
 
   const store = getStore()
-  const [settings, homepage, whyTurkiye, about, services, team, stories, partners] = await Promise.all([
+  const [settings, homepage, whyTurkiye, about, services, destinations, team, stories, partners] = await Promise.all([
     store.get('siteSettings', 'siteSettings'),
     store.get('homepage', 'homepage'),
     store.get('whyTurkiye', 'whyTurkiye'),
     store.get('about', 'about'),
     store.list('service'),
+    store.list('destination'),
     store.list('teamMember'),
     store.list('story'),
     store.list('partner'),
@@ -38,10 +40,12 @@ export default async function ContentPage({ searchParams }: PageProps<'/admin/co
         section={section}
         data={{
           settings: settings ?? defaultSettingsDoc(),
-          homepage: homepage ?? defaultHomepage(),
+          // Adds sections the site gained after the order was last saved (e.g. Destinations).
+          homepage: { _id: 'homepage', _type: 'homepage', sections: normalizeSections(homepage?.sections) },
           whyTurkiye: whyTurkiye ?? defaultWhyTurkiyeDoc(),
           about: about ?? defaultAboutDoc(),
           services: services.sort((a, b) => a.stage - b.stage || byOrder(a, b)),
+          destinations: destinations.sort(byOrder),
           team: team.sort(byOrder),
           stories: stories.sort(byOrder),
           partners: partners.sort(byOrder),

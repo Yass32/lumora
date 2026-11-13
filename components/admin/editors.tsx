@@ -144,7 +144,7 @@ export function WhyTurkiyeEditor({ doc }: { doc: WhyTurkiyeDoc }) {
 
   return (
     <>
-      <EditorCard title="Why Türkiye section">
+      <EditorCard title="Why study abroad section">
         <LangTabs lang={lang} onChange={setLang} values={all} />
         <LangNotice lang={lang} />
         <div dir={dir} className="flex flex-col gap-4">

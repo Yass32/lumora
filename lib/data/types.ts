@@ -57,6 +57,15 @@ export type StoryDoc = Doc<'story'> & {
   order: number
 }
 
+export type DestinationDoc = Doc<'destination'> & {
+  /** Two-letter country code shown on the card, e.g. "TR" */
+  code: string
+  name: Localized
+  summary: Localized
+  photo?: ImageRef | null
+  order: number
+}
+
 export type PartnerDoc = Doc<'partner'> & { name: string; website?: string; logo?: ImageRef | null; order: number }
 
 export const enquiryStatuses = ['new', 'contacted', 'applying', 'enrolled', 'closed'] as const
@@ -69,6 +78,7 @@ export type EnquiryDoc = Doc<'enquiry'> & {
   level?: string
   programme?: string
   intake?: string
+  destination?: string
   message?: string
   language: string
   status: EnquiryStatus
@@ -93,6 +103,7 @@ export type AnyDoc =
   | TeamMemberDoc
   | StoryDoc
   | PartnerDoc
+  | DestinationDoc
   | EnquiryDoc
   | StaffDoc
 
